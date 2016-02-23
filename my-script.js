@@ -1,16 +1,8 @@
 
 var turnCounter = 1;
 
-var one = document.getElementById("cell1").innerHTML;
-var two = document.getElementById("cell2").innerHTML;
-var three = document.getElementById("cell3").innerHTML;
-var four = document.getElementById("cell4").innerHTML;
-var five = document.getElementById("cell5").innerHTML;
-var six = document.getElementById("cell6").innerHTML;
-var seven = document.getElementById("cell7").innerHTML;
-var eight = document.getElementById("cell8").innerHTML;
-var nine = document.getElementById("cell9").innerHTML;
 
+// the clear board function.  working.
 var reset = function () {
   for (var i=1; i<=9; i++) {
     document.getElementById("cell"+i).setAttribute("class", "blankCell");
@@ -20,41 +12,38 @@ var reset = function () {
 
 document.getElementById("clear").onclick = function() {reset()};
 
-// this is the broken out checkWin function
-var checkWin = function (a,b,c,player) {
-  if ((a.innerHTML)===(b.innerHTML)===(c.innerHTML)===player) {
-    alert (player + " wins!");
-  }
-}
-
-// this is the declareWin function that checks the various win scenarios
-// var declareWin = function() {
-
-// if ((checkWin(cell1,cell2,cell3, "X") || checkWin(cell4,cell5,cell6, "X") || checkWin(cell7,cell8,cell9, "X") || checkWin(cell1,cell4,cell7, "X") || checkWin(cell2,cell5,cell8, "X") || checkWin(cell3,cell6,cell9, "X") ||checkWin(cell1,cell5,cell9, "X") || checkWin(cell3,cell5,cell7, "X")) || checkWin(cell1,cell2,cell3, "O") || checkWin(cell4,cell5,cell6, "O") || checkWin(cell7,cell8,cell9, "O") ||checkWin(cell1,cell4,cell7, "O") || checkWin(cell2,cell5,cell8, "O") || checkWin(cell3,cell6,cell9, "O") || checkWin(cell1,cell5,cell9, "O") || checkWin(cell3,cell5,cell7, "O")) {
-
-//   return true;
-//   // location.reload();
-//   }
-
-//   else {
-//     return false;
-//   }
-
-// }
-
+// the main function to check if game is over (draw or one player wins)
 var checkEnd = function () {
-  // this declares draw and resets - works
+
+  // declare local variables so as to access properties live
+  var one = document.getElementById("cell1").textContent;
+  var two = document.getElementById("cell2").textContent;
+  var three = document.getElementById("cell3").textContent;
+  var four = document.getElementById("cell4").textContent;
+  var five = document.getElementById("cell5").textContent;
+  var six = document.getElementById("cell6").textContent;
+  var seven = document.getElementById("cell7").textContent;
+  var eight = document.getElementById("cell8").textContent;
+  var nine = document.getElementById("cell9").textContent;
+
+
   if (turnCounter>9) {
-    alert("Looks like you're out of moves or this is a draw.  Thanks for playing.  Please click the clear button.");
+    alert("Looks like you're out of moves or this is a draw.  Thanks for playing.");
 
     location.reload();
   }
 
   else {
 
-    if (one==two==three=="X") {
+    if ((one=="X" && one==two && two==three) || (one=="X" && one==four && four==seven) || (one=="X" && one==five && five==nine) || (four=="X" && four==five && five==six) || (two=="X" && two==five && five==eight) || (three=="X" && three==five && five==seven) || (seven=="X" && seven==eight && eight==nine) || (three=="X" && three==six && six==nine)) {
 
       alert("X wins!");
+      location.reload();
+    }
+
+    else if ((one=="O" && one==two && two==three) || (one=="O" && one==four && four==seven) || (one=="O" && one==five && five==nine) || (four=="O" && four==five && five==six) || (two=="O" && two==five && five==eight) || (three=="O" && three==five && five==seven) || (seven=="O" && seven==eight && eight==nine) || (three=="O" && three==six && six==nine)) {
+
+      alert("O wins!");
       location.reload();
     }
 
@@ -63,7 +52,7 @@ var checkEnd = function () {
 }
 
 
-
+// adds onclick changeClass to each cell.  not the most elegant but working.
 for (var i = 1; i <= 9; i++) {
   var cell = "cell"+ i
   console.log(i)
@@ -76,67 +65,43 @@ for (var i = 1; i <= 9; i++) {
   }());
 }
 
-// function cellCheck () {
-//   for (var i=0; i<=9; i++) {
-//     console.log(("cell"+i).innerHTML);
-//   }
-// }
 
 function changeClass(cell) {
 
+    if (document.getElementById(cell).textContent=="X" || document.getElementById(cell).textContent=="O") {
+      alert ("That cell is taken. Please try another one.");
+    }
+
+    else {
+
     if (turnCounter%2===1) {
 
-    document.getElementById("status").innerHTML="It's X's turn";
+    document.getElementById("status").textContent="It's X's turn";
     document.getElementById(cell).setAttribute("class", "redCell");
-    document.getElementById(cell).innerHTML="X";
+    document.getElementById(cell).textContent="X";
 
     // utilities all seem to be working
+    checkEnd();
     turnCounter++;
     console.log(turnCounter);
     checkEnd();
 
-    // console.log(cell1.innerHTML);
-    // console.log(cell2.innerHTML);
-    // console.log(cell3.innerHTML);
-    // console.log(cell4.innerHTML);
-    // console.log(cell5.innerHTML);
-    // console.log(cell6.innerHTML);
-    // console.log(cell7.innerHTML);
-    // console.log(cell8.innerHTML);
-    // console.log(cell9.innerHTML);
-
-    console.log(one);
-    console.log(two);
-    console.log(three);
-
-
-  }
-
-  else {
-    document.getElementById("status").innerHTML="It's O's turn";
-    document.getElementById(cell).setAttribute("class", "blueCell");
-    document.getElementById(cell).innerHTML="O";
-
-    // utilities all seem to be working
-    turnCounter++;
-    console.log(turnCounter);
-    checkEnd();
-
-    // console.log(cell1.innerHTML);
-    // console.log(cell2.innerHTML);
-    // console.log(cell3.innerHTML);
-    // console.log(cell4.innerHTML);
-    // console.log(cell5.innerHTML);
-    // console.log(cell6.innerHTML);
-    // console.log(cell7.innerHTML);
-    // console.log(cell8.innerHTML);
-    // console.log(cell9.innerHTML);
-
-    console.log(one);
-    console.log(two);
-    console.log(three);
 
     }
 
+    else {
+
+    document.getElementById("status").textContent="It's O's turn";
+    document.getElementById(cell).setAttribute("class", "blueCell");
+    document.getElementById(cell).textContent="O";
+
+    // utilities all seem to be working
+    checkEnd();
+    turnCounter++;
+    console.log(turnCounter);
+    checkEnd();
+
+    }
+  }
 }
 
