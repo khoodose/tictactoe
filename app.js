@@ -23,6 +23,7 @@ $(function() {
   function reset () {
     $("td").text("").removeClass();
     turnCounter = 0;
+    $("#status").text("It's X's turn");
   }
 
   // test function to make sure we grabbed the right element
