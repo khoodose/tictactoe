@@ -22,6 +22,7 @@ $(function() {
   // reset function to clear board
   function reset () {
     $("td").text("").removeClass();
+    turnCounter = 0;
   }
 
   // test function to make sure we grabbed the right element
